@@ -13,12 +13,12 @@ public class Work implements Serializable {
     private long id;
     private String title;
     private String description;
+    private String imageUri;
 
-    public Work(String title, String description) {
-
+    public Work(String title, String description, String imageUri) {
         this.title = title;
         this.description = description;
-
+        this.imageUri = imageUri;
     }
 
     public Work(){
@@ -47,5 +47,13 @@ public class Work implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 }

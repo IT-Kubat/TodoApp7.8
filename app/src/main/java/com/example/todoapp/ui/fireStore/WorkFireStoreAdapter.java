@@ -3,11 +3,13 @@ package com.example.todoapp.ui.fireStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.todoapp.R;
 import com.example.todoapp.model.Work;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -18,6 +20,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
     public class WorkFireStoreAdapter extends FirestoreRecyclerAdapter<Work, WorkFireStoreAdapter.WorkHolder> {
         OnWorkListener listener;
 
+
+
         public WorkFireStoreAdapter(@NonNull FirestoreRecyclerOptions<Work> options) {
             super(options);
         }
@@ -25,8 +29,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
         @Override
         protected void onBindViewHolder(@NonNull WorkHolder holder, int position, @NonNull Work model) {
-            holder.title.setText(model.getTitle());
-            holder.description.setText(model.getDescription());
+            holder.onBind(model);
+
         }
 
         @NonNull
@@ -41,13 +45,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
         class WorkHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
             TextView title;
             TextView description;
+            ImageView iv_picture;
 
 
             public WorkHolder(@NonNull View itemView) {
                 super(itemView);
                 title = itemView.findViewById(R.id.title_firestore);
                 description = itemView.findViewById(R.id.description_firestore);
-
+                iv_picture = itemView.findViewById(R.id.iv_picture);
                 itemView.setOnClickListener(this);
                 itemView.setOnLongClickListener(this);
             }
@@ -61,6 +66,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
             public boolean onLongClick(View v) {
                 listener.onItemLongClick(getSnapshots().getSnapshot(getAdapterPosition()), getAdapterPosition());
                 return true;
+            }
+
+            public void onBind(Work work){
+                title.setText(work.getTitle());
+                description.setText(work.getDescription());
+                Glide.with(itemView.getContext()).load(work.getImageUri()).into(iv_picture);
             }
         }
 

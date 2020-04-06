@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.todoapp.OnItemClickListener;
 import com.example.todoapp.R;
 import com.example.todoapp.model.Work;
@@ -95,6 +96,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder>{
         public void bind(Work work){
             textTitle.setText(work.getTitle());
             textDesc.setText(work.getDescription());
+            Glide.with(itemView.getContext()).load(work.getImageUri()).into(imageView);
         }
     }
 }
