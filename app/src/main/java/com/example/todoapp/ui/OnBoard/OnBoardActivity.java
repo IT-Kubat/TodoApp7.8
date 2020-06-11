@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayout;
 public class OnBoardActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
+    Button btnSkip;
 
 
     @Override
